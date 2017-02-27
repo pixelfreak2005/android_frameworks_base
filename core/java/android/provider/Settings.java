@@ -5678,12 +5678,6 @@ public static final String PHONE_BLACKLIST_REGEX_ENABLED = "phone_blacklist_rege
         public static final String FP_UNLOCK_KEYSTORE = "fp_unlock_keystore";
 
         /**
-         * Show/Hide Emergency Button on Lockscreen
-         * @hide
-         */
-        public static final String SHOW_EMERGENCY_BUTTON = "show_emergency_button";
-
-        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
@@ -7229,6 +7223,18 @@ public static final String PHONE_BLACKLIST_REGEX_ENABLED = "phone_blacklist_rege
          */
         public static final String PULSE_LAVALAMP_SOLID_SPEED = "lava_lamp_solid_speed";
  
+        /**
+         * Pulse Solid units count
+         * @hide
+         */
+        public static final String PULSE_SOLID_UNITS_COUNT = "pulse_solid_units_count";
+
+        /**
+         * Pulse Solid units opacity
+         * @hide
+         */
+        public static final String PULSE_SOLID_UNITS_OPACITY = "pulse_solid_units_opacity";
+
         /**
          * A flag containing settings used for biometric weak
          * @hide
