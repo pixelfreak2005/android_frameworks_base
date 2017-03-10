@@ -48,13 +48,13 @@
   <string name="onthego_notif_ticker">Tryb \"W ruchu\" aktywowany</string>
   <string name="onthego_notif_title">Tryb \"W ruchu\" jest aktywny</string>
   <string name="onthego_notif_stop">Zatrzymaj</string>
-  <string name="onthego_notif_options">Opcje</string>
+  <string name="onthego_notif_options">Ustawienia</string>
   <string name="onthego_notif_error">Nie można uruchomić trybu \"W ruchu\"</string>
   <string name="onthego_notif_restart">Uruchom ponownie tryb \"W ruchu\"</string>
   <string name="onthego_notif_camera_changed">Zmieniono tryb aparatu</string>
   <string name="onthego_transparency">Przezroczystość</string>
   <string name="onthego_front_camera">Użyj przedniej kamery</string>
-  <string name="onthego_service_toggle">Automatycznie uruchom ponownie usługę</string>
+  <string name="onthego_service_toggle">Automatycznie restartuj usługę</string>
   <!-- Sound QS Tile -->
   <string name="quick_settings_sound_label">Dźwięk</string>
   <string name="quick_settings_sound_ring">Dzwonek</string>
@@ -67,11 +67,11 @@
   <string name="quick_settings_screenshot_label">Zrzut ekranu</string>
   <string name="quick_settings_region_screenshot_label">Częściowy zrzut ekranu</string>
   <string name="quick_settings_adb_network">Sieci ADB</string>
-  <string name="quick_settings_network_adb_enabled_label">Włączono</string>
+  <string name="quick_settings_network_adb_enabled_label">Włączona</string>
   <string name="quick_settings_network_adb_disabled_label">Nieaktywny</string>
-  <string name="quick_settings_sync_label">Synchr.</string>
-  <string name="accessibility_quick_settings_sync_off">Synchr. wył.</string>
-  <string name="accessibility_quick_settings_sync_on">Synchr. wł.</string>
+  <string name="quick_settings_sync_label">Synchronizacja</string>
+  <string name="accessibility_quick_settings_sync_off">Synchr. wył</string>
+  <string name="accessibility_quick_settings_sync_on">Synchr. wł</string>
   <string name="accessibility_quick_settings_sync_changed_off">Synchronizacja wyłączona</string>
   <string name="accessibility_quick_settings_sync_changed_on">Synchronizacja włączona</string>
   <string name="quick_settings_expanded_desktop_label">Rozszerzony pulpit</string>
@@ -186,4 +186,22 @@
   <string name="tasklist_memory_usage">"Wolna • Całkowita Pamięć: [<xliff:g id="number">%s</xliff:g>] • [<xliff:g id="name">%s</xliff:g>]"</string>
   <string name="message_keep_one_launcher">Należy zachować przynajmniej jedną aktywność domową!</string>
   <string name="tm_clear_task">WYCZYŚĆ</string>
+  <!-- Slim recents app sidebar queue app toast -->
+  <string name="toast_recents_queue_app">Uruchom %s po zamknięciu ostatnich</string>
+  <string name="toast_recents_cancel_queued_app">Anulowane uruchamianie aplikacji</string>
+  <!-- Sim recents on keyguard -->
+  <string name="slim_recent_keyguard">Odblokuj urządzenie by zobaczyć ostatnie aplikacje</string>
+  <!-- Kill button in notification guts -->
+  <string name="force_stop_dlg_title">Wymusić zatrzymanie?</string>
+  <string name="force_stop_dlg_text">Jeśli wymusisz zatrzymanie aplikacji, może ona zadziałać nieprawidłowo.</string>
+  <string name="dlg_ok">OK</string>
+  <string name="dlg_cancel">Anuluj</string>
+  <string name="kill">Zabij aplikację</string>
+  <!-- OmniJAWS -->
+  <string name="omnijaws_service_error">Błąd</string>
+  <string name="omnijaws_service_unkown">Brak danych o pogodzie</string>
+  <string name="omnijaws_detail_header">Pogoda</string>
+  <string name="omnijaws_label_default">Pogoda</string>
+  <string name="omnijaws_current_text">Teraz</string>
+  <string name="omnijaws_package_not_available">OmniJaws nie jest dostępny</string>
 </resources>

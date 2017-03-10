@@ -186,4 +186,22 @@
   <string name="tasklist_memory_usage">"Voľná • Celková pamäť: [<xliff:g id="number">%s</xliff:g>] • [<xliff:g id="name">%s</xliff:g>]"</string>
   <string name="message_keep_one_launcher">Mali by ste mať aspoň jednu aktivitu!</string>
   <string name="tm_clear_task">VYMAZAŤ</string>
+  <!-- Slim recents app sidebar queue app toast -->
+  <string name="toast_recents_queue_app">Spustiť %s po zatvorení nedávnych</string>
+  <string name="toast_recents_cancel_queued_app">Zrušiť spúšťanie aplikácií</string>
+  <!-- Sim recents on keyguard -->
+  <string name="slim_recent_keyguard">Odomknúť zariadenie pre zobrazenie nedávných aplikácií</string>
+  <!-- Kill button in notification guts -->
+  <string name="force_stop_dlg_title">Vynútiť zastavenie?</string>
+  <string name="force_stop_dlg_text">Ak vynútite zastavenie aplikácie, môže sa správať zvláštne.</string>
+  <string name="dlg_ok">OK</string>
+  <string name="dlg_cancel">Zrušiť</string>
+  <string name="kill">Ukončiť aplikáciu</string>
+  <!-- OmniJAWS -->
+  <string name="omnijaws_service_error">Chyba</string>
+  <string name="omnijaws_service_unkown">Žiadne údaje o počasí</string>
+  <string name="omnijaws_detail_header">Počasie</string>
+  <string name="omnijaws_label_default">Počasie</string>
+  <string name="omnijaws_current_text">Teraz</string>
+  <string name="omnijaws_package_not_available">OmniJaws nie je k dispozícii</string>
 </resources>
