@@ -48,14 +48,17 @@ import android.view.ContextThemeWrapper;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.android.cards.recyclerview.internal.BaseRecyclerViewAdapter.CardViewHolder;
 import com.android.cards.recyclerview.internal.CardArrayRecyclerViewAdapter;
 import com.android.cards.recyclerview.view.CardRecyclerView;
 import com.android.cards.internal.Card;
 import com.android.systemui.R;
+import com.android.systemui.stackdivider.WindowManagerProxy;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -73,7 +76,7 @@ import java.util.List;
 public class RecentPanelView {
 
     private static final String TAG = "RecentPanelView";
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
 
     public static final String TASK_PACKAGE_IDENTIFIER = "#ident:";
 
@@ -166,9 +169,97 @@ public class RecentPanelView {
 
     private void setupItemTouchHelper() {
         ItemTouchHelper touchHelper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
+
+            RecentCard card;
+            int taskid;
+            int initPos;
+            int finalPos;
+            boolean isSwipe;
+            boolean unwantedDrag = true;
+
             @Override
             public boolean onMove(RecyclerView recyclerView, ViewHolder viewHolder, 
                     ViewHolder target) {
+
+                /*we'll start multiwindow action in the clearView void, when the drag action 
+                and all animations are completed. Otherwise we'd do a loop action
+                till the drag is completed for each onMove (wasting resources and making
+                the drag not smooth).*/
+
+                initPos = viewHolder.getAdapterPosition();
+                card = (RecentCard) mCards.get(initPos);
+                taskid = card.getPersistentTaskId();
+
+                unwantedDrag = false;
+                return true;
+            }
+
+            @Override
+            public void onMoved (RecyclerView recyclerView, 
+                RecyclerView.ViewHolder viewHolder,
+                int fromPos,
+                RecyclerView.ViewHolder target,
+                int toPos,
+                int x,
+                int y) {
+
+                finalPos = toPos;
+                isSwipe = false;
+
+            }
+
+            @Override
+            public float getMoveThreshold (RecyclerView.ViewHolder viewHolder) {
+                //if less than this, we consider it as unwanted drag
+                return 0.5f;
+            }
+
+            @Override
+            public void clearView (RecyclerView recyclerView, 
+                RecyclerView.ViewHolder viewHolder) {
+                super.clearView(recyclerView, viewHolder);
+
+                if (isSwipe) {
+                    //don't start multiwindow on swipe
+                    return;
+                }
+
+                if (unwantedDrag) {
+                    /*this means MoveThreshold is less than needed, so onMove
+                    has not been considered, so we don't consider the action as wanted drag*/
+                    return;
+                }
+
+                unwantedDrag = true; //restore the drag check
+
+                //if a multiwin session is already active, ask the user to close it
+                int dockSide = WindowManagerProxy.getInstance().getDockSide();
+                if (dockSide != WindowManager.DOCKED_INVALID) {
+                    Toast mWarningToast = Toast.makeText(mContext, R.string.recents_multiwin_warning, Toast.LENGTH_LONG);
+                    mWarningToast.show();
+                    return;
+                }
+
+                ActivityOptions options = ActivityOptions.makeBasic();
+                /*Activity Manager let's dock the app to top or bottom dinamically, with the setDockCreateMode
+                DOCKED_STACK_CREATE_MODE_TOP_OR_LEFT is 0, DOCKED_STACK_CREATE_MODE_BOTTOM_OR_RIGHT is 1
+                Thus if we drag down, dock app to bottom, if we drag up dock app to top*/
+                options.setDockCreateMode(finalPos > initPos ? 0 : 1);
+                options.setLaunchStackId(ActivityManager.StackId.DOCKED_STACK_ID);
+                try {
+                    card.hideCurrentOptions();//hide dragged card header longpress options
+                    ActivityManagerNative.getDefault()
+                            .startActivityFromRecents(taskid, options.toBundle());
+                    card = (RecentCard) mCards.get(finalPos);
+                    int newTaskid = card.getPersistentTaskId();
+                    /*after we docked our main app, on the other side of the screen we
+                    open the app we dragged the main app over*/
+                    mController.openOnDraggedApptoOtherSide(newTaskid);
+                } catch (RemoteException e) {}
+            }
+
+            @Override
+            public boolean isLongPressDragEnabled() {
                 return true;
             }
 
@@ -179,13 +270,14 @@ public class RecentPanelView {
                 mCards.remove(pos);
                 removeApplication(card.getTaskDescription());
                 mCardAdapter.notifyItemRemoved(pos);
+                isSwipe = true;
             }
 
             @Override
             public int getMovementFlags(RecyclerView recyclerView,
                     RecyclerView.ViewHolder viewHolder) {
                 // Set movement flags based on the layout manager
-                final int dragFlags = 0;
+                final int dragFlags = ItemTouchHelper.UP| ItemTouchHelper.DOWN;
                 final int swipeFlags = ItemTouchHelper.START | ItemTouchHelper.END;
                 return makeMovementFlags(dragFlags, swipeFlags);
             }

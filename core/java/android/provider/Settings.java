@@ -3639,6 +3639,24 @@ public static final String PHONE_BLACKLIST_REGEX_ENABLED = "phone_blacklist_rege
         public static final String KEY_VOICEMAIL_BREATH = "voicemail_breath";
 
         /**
+         * Whether to show the carrier name on the empty shade view
+         * @hide
+         */
+        public static final String EMPTY_SHADE_VIEW_SHOW_CARRIER_NAME = "empty_shade_view_show_carrier_name";
+
+        /**
+         * Whether to show the wifi name on the empty shade view
+         * @hide
+         */
+        public static final String EMPTY_SHADE_VIEW_SHOW_WIFI_NAME = "empty_shade_view_show_wifi_name";
+
+        /**
+         * Color of the text on the empty shade view
+        * @hide
+         */
+        public static final String EMPTY_SHADE_VIEW_TEXT_COLOR = "empty_shade_view_text_color";
+
+        /**
          * @deprecated Use {@link android.provider.Settings.Global#KEY_SMS_BREATH} instead
          */
         @Deprecated
@@ -4548,8 +4566,11 @@ public static final String PHONE_BLACKLIST_REGEX_ENABLED = "phone_blacklist_rege
         /**
          * Status bar weather temperature
          * 0: Hide the temperature
-         * 1: Display the temperature with scale
-         * 2: Display the temperature without scale
+         * 1: Display the temperature with scale and image
+         * 2: Display the temperature without scale and with image
+         * 3: Display the temparature with scale and without image
+         * 4: Display the temperature without scale and without image
+         * 5: Display the temperature image
          * @hide
          */
         public static final String STATUS_BAR_SHOW_WEATHER_TEMP = "status_bar_show_weather_temp";
@@ -4579,6 +4600,13 @@ public static final String PHONE_BLACKLIST_REGEX_ENABLED = "phone_blacklist_rege
          * @hide
          */
         public static final String STATUS_BAR_WEATHER_COLOR = "status_bar_weather_color";
+
+        /**
+         * Statusbar weather color setting
+         * @hide
+         */
+        public static final String STATUS_BAR_WEATHER_IMAGE_COLOR = "status_bar_weather_image_color";
+
 
         /*
          * Dyanamic Navbar Switch
@@ -4944,6 +4972,12 @@ public static final String PHONE_BLACKLIST_REGEX_ENABLED = "phone_blacklist_rege
          * @hide
          */
         public static final String VOLUME_DIALOG_STROKE_DASH_GAP = "volume_dialog_stroke_dash_gap";
+
+        /**
+         * Switch to add confirmation to power Dialog
+         * @hide
+         */
+        public static final String CONFIRM_SHUTDOWN_SWITCH = "confirm_shutdown_switch";
 
         /**
          * Transparent power menu and dialogs
@@ -5671,11 +5705,18 @@ public static final String PHONE_BLACKLIST_REGEX_ENABLED = "phone_blacklist_rege
          */
         public static final String RECENT_CARD_TEXT_COLOR = "recent_card_text_color";
 
-	    /**
+        /**
          * show the membar in slim recents
          *  @hide
          */
         public static final String SLIM_RECENTS_MEM_DISPLAY = "slim_recents_mem_display";
+
+        /**
+         * Use the membar in slim recents as clear all button on longclick
+         *  @hide
+         */
+        public static final String SLIM_RECENTS_MEM_DISPLAY_LONG_CLICK_CLEAR =
+                "slim_recents_mem_display_long_click_clear";
 
         /**
          * Unlock keystore with fingerprint after reboot

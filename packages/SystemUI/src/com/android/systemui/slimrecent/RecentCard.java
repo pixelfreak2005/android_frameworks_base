@@ -42,6 +42,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.android.cards.internal.Card;
 import com.android.cards.internal.CardHeader;
@@ -49,6 +51,7 @@ import com.android.cards.view.CardView;
 
 import com.android.systemui.R;
 import com.android.systemui.SystemUIApplication;
+import com.android.systemui.stackdivider.WindowManagerProxy;
 import com.android.systemui.statusbar.phone.PhoneStatusBar;
 
 /**
@@ -71,6 +74,8 @@ public class RecentCard extends Card {
     private int mPersistentTaskId;
 
     private int mCardColor;
+
+    private RecentController mSlimRecents;
 
     private TaskDescription mTaskDescription;
 
@@ -248,12 +253,24 @@ public class RecentCard extends Card {
                     intent = getStoreIntent();
                 }
                 if (id == R.id.multiwindow) {
+                    //if a multiwin session is already active, ask the user to close it
+                    int dockSide = WindowManagerProxy.getInstance().getDockSide();
+                    if (dockSide != WindowManager.DOCKED_INVALID) {
+                        Toast mWarningToast = Toast.makeText(mContext, R.string.recents_multiwin_warning, Toast.LENGTH_LONG);
+                        mWarningToast.show();
+                        return;
+                    }
+
                     ActivityOptions options = ActivityOptions.makeBasic();
                     options.setDockCreateMode(0);
                     options.setLaunchStackId(ActivityManager.StackId.DOCKED_STACK_ID);
+                    mSlimRecents = new RecentController(mContext, getContext().getResources()
+                            .getConfiguration().getLayoutDirection());
                     try {
                         ActivityManagerNative.getDefault()
                                 .startActivityFromRecents(mPersistentTaskId, options.toBundle());
+                        mSlimRecents.openLastApptoBottom();
+                        hideCurrentOptions();
                     } catch (RemoteException e) {}
                     return; 
                 }
@@ -276,6 +293,10 @@ public class RecentCard extends Card {
         options.findViewById(R.id.market).setOnClickListener(listener);
         options.findViewById(R.id.close).setOnClickListener(listener);
         options.findViewById(R.id.multiwindow).setOnClickListener(listener);
+    }
+
+    public void hideCurrentOptions() {
+        getCardView().hideOptions(-1, -1);
     }
 
     private Intent getAppInfoIntent() {
