@@ -70,15 +70,15 @@
         android:background="#ffff0000">
 
         <ImageView
-            style="@android:style/Widget.Material.Light.Button.Borderless.Small"
+            style="@style/SlimRecentsCardOptionsButton"
             android:id="@+id/app_info"
             android:layout_weight="1"
             android:layout_width="52dp"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_info" />
+            android:src="@drawable/ic_recent_app_info" />
 
         <ImageView
-            style="@android:style/Widget.Material.Light.Button.Borderless.Small"
+            style="@style/SlimRecentsCardOptionsButton"
             android:id="@+id/market"
             android:layout_weight="1"
             android:layout_width="52dp"
@@ -86,7 +86,7 @@
             android:src="@drawable/ic_shop" />
 
         <ImageView
-            style="@android:style/Widget.Material.Light.Button.Borderless.Small"
+            style="@style/SlimRecentsCardOptionsButton"
             android:id="@+id/multiwindow"
             android:layout_weight="1"
             android:layout_width="52dp"
@@ -94,7 +94,7 @@
             android:src="@drawable/ic_multiwindow" />
 
         <ImageView
-            style="@android:style/Widget.Material.Light.Button.Borderless.Small"
+            style="@style/SlimRecentsCardOptionsButton"
             android:id="@+id/close"
             android:layout_weight="1"
             android:layout_width="52dp"
@@ -112,10 +112,10 @@
         android:layout_height="wrap_content"
         />
 
-    <com.android.cards.view.component.CardShadowView
+    <!--<com.android.cards.view.component.CardShadowView
         style="@style/card.shadow_outer_layout"
         android:id="@+id/card_shadow_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    android:layout_height="wrap_content" />-->
 
 </LinearLayout>

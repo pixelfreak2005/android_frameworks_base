@@ -501,7 +501,7 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
                 if (mShowSilentToggle) {
                     mItems.add(mSilentModeAction);
                 }
-            } else if (mEmergencyAffordanceManager.needsEmergencyAffordance() && GLOBAL_ACTION_KEY_EMERGENCY.equals(actionKey)) {
+            } else if (GLOBAL_ACTION_KEY_EMERGENCY.equals(actionKey)) {
                 mItems.add(getEmergencyAction());
             } else if (GLOBAL_ACTION_KEY_USERS.equals(actionKey)) {
                 List<UserInfo> users = ((UserManager) mContext.getSystemService(
@@ -573,12 +573,19 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
             return true;
         }
 
+
+        private boolean isConfirmed() {
+            return Settings.System.getInt(mContext.getContentResolver(),
+                   Settings.System.CONFIRM_SHUTDOWN_SWITCH, 1) == 1;
+        }
+
         @Override
         public void onPress() {
             // shutdown by making sure radio and power are handled accordingly.
-            mWindowManagerFuncs.shutdown(false /* confirm */);
+            mWindowManagerFuncs.shutdown(isConfirmed() /* confirm */);
         }
     }
+
 
     private final class RestartAction extends SinglePressAction implements LongPressAction {
         private RestartAction() {
